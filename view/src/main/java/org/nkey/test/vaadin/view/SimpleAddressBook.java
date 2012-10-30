@@ -14,11 +14,13 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import org.springframework.stereotype.Controller;
 
 
 /**
  * @author m.nikolaev Date: 30.10.12 Time: 23:04
  */
+@Controller
 public class SimpleAddressBook extends Application {
     private static String[] fields =
             { "First Name", "Last Name", "Company", "Mobile Phone", "Work Phone", "Home Phone", "Work Email",

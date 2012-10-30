@@ -9,11 +9,11 @@
     <servlet>
         <servlet-name>myservlet</servlet-name>
         <servlet-class>
-            com.vaadin.terminal.gwt.server.ApplicationServlet
+            org.nkey.test.vaadin.view.spring.SpringApplicationServlet
         </servlet-class>
         <init-param>
-            <param-name>application</param-name>
-            <param-value>org.nkey.test.vaadin.view.SimpleAddressBook</param-value>
+            <param-name>applicationBeanName</param-name>
+            <param-value>simpleAddressBook</param-value>
         </init-param>
     </servlet>
 
@@ -21,4 +21,17 @@
         <servlet-name>myservlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
+
+    <context-param>
+        <description>The Spring configuration file</description>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/application.xml</param-value>
+    </context-param>
+
+    <listener>
+        <description>The Spring context listener.</description>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
 </web-app>
