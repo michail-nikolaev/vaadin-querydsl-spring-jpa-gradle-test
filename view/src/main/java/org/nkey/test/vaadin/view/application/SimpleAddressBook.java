@@ -1,4 +1,4 @@
-package org.nkey.test.vaadin.view;
+package org.nkey.test.vaadin.view.application;
 
 
 import com.vaadin.Application;

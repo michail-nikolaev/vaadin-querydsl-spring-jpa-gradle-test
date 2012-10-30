@@ -4,6 +4,8 @@ dependencies {
     compile "org.springframework:spring-orm:$springVersion"
     compile 'org.springframework.data:spring-data-jpa:1.1.2.RELEASE'
 
+    compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
+
     compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
     compile 'com.h2database:h2:1.3.168'
 

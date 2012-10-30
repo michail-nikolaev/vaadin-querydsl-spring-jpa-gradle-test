@@ -13,3 +13,4 @@
 #gradle build dirs
 .gradle
 build
+generatedJava

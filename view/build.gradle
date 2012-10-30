@@ -18,6 +18,7 @@ buildscript {
 dependencies {
     compile project(':services')
     compile "com.vaadin:vaadin:$vaadinVersion"
+    compile 'commons-beanutils:commons-beanutils:1.8.3'
 
     compile group: 'org.springframework', name: 'spring-context', version: "$springVersion"
     compile group: 'org.springframework', name: 'spring-webmvc', version: "$springVersion"

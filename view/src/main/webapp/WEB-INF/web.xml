@@ -28,10 +28,14 @@
         <param-value>/WEB-INF/application.xml</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>dev</param-value>
+    </context-param>
+
     <listener>
         <description>The Spring context listener.</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
 
 </web-app>
