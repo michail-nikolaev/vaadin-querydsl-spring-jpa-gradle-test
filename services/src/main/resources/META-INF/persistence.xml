@@ -18,6 +18,7 @@
             <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
             <property name="hibernate.connection.password" value="sa"/>
             <property name="hibernate.connection.username" value=""/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>
