@@ -1,5 +1,6 @@
 package org.nkey.test.vaadin.test;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nkey.test.vaadin.SpringConfig;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,4 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SpringTestBase {
+    @Test
+    public void junk() {}
 }
