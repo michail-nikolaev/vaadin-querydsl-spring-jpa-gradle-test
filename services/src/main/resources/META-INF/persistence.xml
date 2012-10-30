@@ -1,0 +1,23 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             version="1.0">
+
+    <persistence-unit name="DefaultPersistenceUnit"
+                      transaction-type="RESOURCE_LOCAL">
+
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <class>org.nkey.test.vaadin.domain.User</class>
+        <class>org.nkey.test.vaadin.domain.AbstractEntity</class>
+        <class>org.nkey.test.vaadin.domain.Comment</class>
+        <class>org.nkey.test.vaadin.domain.Blog</class>
+        <class>org.nkey.test.vaadin.domain.Post</class>
+
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:test"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+            <property name="hibernate.connection.password" value="sa"/>
+            <property name="hibernate.connection.username" value=""/>
+        </properties>
+    </persistence-unit>
+</persistence>

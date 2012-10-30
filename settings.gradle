@@ -1,1 +1,1 @@
-include "domain", "view"
+include "domain", "spring-common", "services", "view"

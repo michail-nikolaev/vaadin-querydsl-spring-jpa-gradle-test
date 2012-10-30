@@ -1,0 +1,11 @@
+dependencies {
+    compile project(':domain')
+    compile project(':spring-common')
+    compile "org.springframework:spring-orm:$springVersion"
+    compile 'org.springframework.data:spring-data-jpa:1.1.2.RELEASE'
+
+    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+
+
+    compile 'com.h2database:h2:1.3.168'
+}
