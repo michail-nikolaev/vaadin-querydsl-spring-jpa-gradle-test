@@ -1,0 +1,48 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.7
+
+ext {
+    vaadinVersion = "6.8.4"
+    slf4jVersion = "1.7.2"
+    springVersion = " 3.1.2.RELEASE"
+    hibernateVersion = "4.1.0.Final"
+    logbackVersion=1.0.7
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        all*.exclude group: "commons-logging", module: "commons-logging"
+    }
+
+
+
+    dependencies {
+
+        compile('javax.inject:javax.inject:1')
+
+        compile "org.slf4j:jcl-over-slf4j:$slf4jVersion",
+                "org.slf4j:jul-to-slf4j:$slf4jVersion"
+        runtime "org.slf4j:slf4j-log4j12:$slf4jVersion"
+
+        compile("ch.qos.logback:logback-classic:$logbackVersion")
+
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+        testCompile group: 'org.springframework', name: 'spring-test', version: "$springVersion"
+    }
+
+
+    group = 'org.nkey.test'
+    version = '0.1-SNAPSHOT'
+}
