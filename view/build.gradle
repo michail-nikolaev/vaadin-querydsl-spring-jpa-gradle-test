@@ -8,7 +8,7 @@ buildscript {
             addArtifactPattern 'http://cloud.github.com/downloads/[organisation]/[module]/[module]-[revision].[ext]'
         }
     }
-    dependencies {                                                                   `
+    dependencies {
         classpath 'bmuschko:gradle-tomcat-plugin:0.9.5'
     }
 }
