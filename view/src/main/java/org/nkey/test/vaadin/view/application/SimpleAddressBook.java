@@ -14,27 +14,38 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import org.nkey.test.vaadin.domain.User;
+import org.nkey.test.vaadin.view.application.repository.EntityItem;
+import org.nkey.test.vaadin.view.application.repository.EntityItemContainer;
+import org.nkey.test.vaadin.view.application.repository.user.UserManager;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import javax.inject.Inject;
+import java.util.Arrays;
 
 
 /**
  * @author m.nikolaev Date: 30.10.12 Time: 23:04
  */
+@Scope("session")
 @Controller
 public class SimpleAddressBook extends Application {
-    private static String[] fields =
-            { "First Name", "Last Name", "Company", "Mobile Phone", "Work Phone", "Home Phone", "Work Email",
-              "Home Email", "Street", "Zip", "City", "State", "Country" };
-    private static String[] visibleCols = new String[]{ "Last Name", "First Name", "Company" };
+    private static String[] fields = { "login", "password" };
 
     private Table contactList = new Table();
     private Form contactEditor = new Form();
     private HorizontalLayout bottomLeftCorner = new HorizontalLayout();
     private Button contactRemovalButton;
-    private IndexedContainer addressBookData = createDummyData();
+    private EntityItemContainer<EntityItem<User>> addressBookData;
+
+    @Inject
+    private UserManager userManager;
 
     @Override
     public void init() {
+        addressBookData = new EntityItemContainer<>(userManager, Arrays.asList(fields), User.class);
+        addressBookData.refresh();
         initLayout();
         initContactAddRemoveButtons();
         initAddressList();
@@ -65,8 +76,8 @@ public class SimpleAddressBook extends Application {
             public void buttonClick(ClickEvent event) {
                 // Add new contact "John Doe" as the first item
                 Object id = ((IndexedContainer) contactList.getContainerDataSource()).addItemAt(0);
-                contactList.getItem(id).getItemProperty("First Name").setValue("John");
-                contactList.getItem(id).getItemProperty("Last Name").setValue("Doe");
+                contactList.getItem(id).getItemProperty("login").setValue("John");
+                contactList.getItem(id).getItemProperty("password").setValue("Doe");
 
                 // Select the newly added item and scroll to the item
                 contactList.setValue(id);
@@ -87,7 +98,7 @@ public class SimpleAddressBook extends Application {
 
     private void initAddressList() {
         contactList.setContainerDataSource(addressBookData);
-        contactList.setVisibleColumns(visibleCols);
+        //contactList.setVisibleColumns(fields);
         contactList.setSelectable(true);
         contactList.setImmediate(true);
         contactList.addListener(new Property.ValueChangeListener() {
@@ -100,47 +111,23 @@ public class SimpleAddressBook extends Application {
     }
 
     private void initFilteringControls() {
-        for (final String pn : visibleCols) {
+        for (final String fieldName : fields) {
             final TextField sf = new TextField();
             bottomLeftCorner.addComponent(sf);
             sf.setWidth("100%");
-            sf.setInputPrompt(pn);
+            sf.setInputPrompt(fieldName);
             sf.setImmediate(true);
             bottomLeftCorner.setExpandRatio(sf, 1);
             sf.addListener(new Property.ValueChangeListener() {
                 public void valueChange(ValueChangeEvent event) {
-                    addressBookData.removeContainerFilters(pn);
+
+                    /*addressBookData.removeContainerFilters(pn);
                     if (sf.toString().length() > 0 && !pn.equals(sf.toString())) {
                         addressBookData.addContainerFilter(pn, sf.toString(), true, false);
-                    }
+                    }*/
                     getMainWindow().showNotification("" + addressBookData.size() + " matches found");
                 }
             });
         }
-    }
-
-    private static IndexedContainer createDummyData() {
-
-        String[] fnames =
-                { "Peter", "Alice", "Joshua", "Mike", "Olivia", "Nina", "Alex", "Rita", "Dan", "Umberto", "Henrik",
-                  "Rene", "Lisa", "Marge" };
-        String[] lnames =
-                { "Smith", "Gordon", "Simpson", "Brown", "Clavel", "Simons", "Verne", "Scott", "Allison", "Gates",
-                  "Rowling", "Barks", "Ross", "Schneider", "Tate" };
-
-        IndexedContainer ic = new IndexedContainer();
-
-        for (String p : fields) {
-            ic.addContainerProperty(p, String.class, "");
-        }
-
-        // Create dummy data by randomly combining first and last names
-        for (int i = 0; i < 1000; i++) {
-            Object id = ic.addItem();
-            ic.getContainerProperty(id, "First Name").setValue(fnames[(int) (fnames.length * Math.random())]);
-            ic.getContainerProperty(id, "Last Name").setValue(lnames[(int) (lnames.length * Math.random())]);
-        }
-
-        return ic;
     }
 }

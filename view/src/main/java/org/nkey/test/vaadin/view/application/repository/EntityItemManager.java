@@ -1,6 +1,7 @@
 package org.nkey.test.vaadin.view.application.repository;
 
 import org.nkey.test.vaadin.services.metadata.QueryMetaData;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -8,9 +9,9 @@ import java.util.List;
  * @author m.nikolaev Date: 31.10.12 Time: 2:37
  */
 public interface EntityItemManager<T extends EntityItem> {
-    List<T> getPersonReferences(QueryMetaData queryMetaData, String... propertyNames);
+    List<T> getEntities(QueryMetaData queryMetaData, Pageable pageable);
 
-    EntityItem getItem(Long id);
+    T getItem(Long id);
 
-    EntityItem saveItem(T entity);
+    T saveItem(T entity);
 }

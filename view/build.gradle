@@ -8,12 +8,17 @@ buildscript {
             addArtifactPattern 'http://cloud.github.com/downloads/[organisation]/[module]/[module]-[revision].[ext]'
         }
     }
-
-    dependencies {
+    dependencies {                                                                   `
         classpath 'bmuschko:gradle-tomcat-plugin:0.9.5'
     }
-
 }
+
+
+repositories {
+    mavenCentral()
+    maven {url "http://maven.vaadin.com/vaadin-addons"}
+}
+
 
 dependencies {
     compile project(':services')
@@ -22,6 +27,9 @@ dependencies {
 
     compile group: 'org.springframework', name: 'spring-context', version: "$springVersion"
     compile group: 'org.springframework', name: 'spring-webmvc', version: "$springVersion"
+    compile group: 'org.springframework', name: 'spring-aspects', version: "$springVersion"
+
+    compile "org.dellroad:dellroad-stuff-vaadin:1.0.550"
 
     providedCompile 'javax:javaee-api:6.0'
 

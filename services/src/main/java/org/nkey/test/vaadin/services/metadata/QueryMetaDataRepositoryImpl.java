@@ -48,11 +48,13 @@ public class QueryMetaDataRepositoryImpl<T, ID extends Serializable> extends Que
                     builder.literal(queryMetaData.getSearchTerm())));
         }
 
-        for (Sort.Order order : pageable.getSort()) {
-            if (order.isAscending()) {
-                criteriaQuery = criteriaQuery.orderBy(builder.asc(root.get(order.getProperty())));
-            } else {
-                criteriaQuery = criteriaQuery.orderBy(builder.desc(root.get(order.getProperty())));
+        if (pageable.getSort() != null) {
+            for (Sort.Order order : pageable.getSort()) {
+                if (order.isAscending()) {
+                    criteriaQuery = criteriaQuery.orderBy(builder.asc(root.get(order.getProperty())));
+                } else {
+                    criteriaQuery = criteriaQuery.orderBy(builder.desc(root.get(order.getProperty())));
+                }
             }
         }
 

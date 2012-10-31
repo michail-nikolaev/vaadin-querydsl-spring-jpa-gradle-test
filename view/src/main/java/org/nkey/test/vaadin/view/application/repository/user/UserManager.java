@@ -3,14 +3,17 @@ package org.nkey.test.vaadin.view.application.repository.user;
 import com.vaadin.data.Property;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.nkey.test.vaadin.domain.User;
+import org.nkey.test.vaadin.services.metadata.QueryMetaData;
 import org.nkey.test.vaadin.services.repository.UserRepository;
 import org.nkey.test.vaadin.view.application.repository.EntityItem;
 import org.nkey.test.vaadin.view.application.repository.EntityItemManager;
-import org.nkey.test.vaadin.services.metadata.QueryMetaData;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +23,14 @@ import java.util.Map;
  */
 @Component
 public class UserManager implements EntityItemManager<EntityItem<User>> {
-    @Inject
+    @SuppressWarnings("SpringJavaAutowiringInspection") @Inject
     private UserRepository repository;
 
-    private EntityItem<User> fromUser(User user, String... propertyNames) {
+    private EntityItem<User> fromUser(User user) {
         Map<String, Object> properties = new HashMap<>();
         try {
-            for (String descriptor : propertyNames) {
-                properties.put(descriptor, PropertyUtils.getProperty(user, descriptor));
+            for (PropertyDescriptor descriptor : PropertyUtils.getPropertyDescriptors(User.class)) {
+                properties.put(descriptor.getName(), PropertyUtils.getProperty(user, descriptor.getName()));
             }
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new IllegalStateException(e);
@@ -47,13 +50,17 @@ public class UserManager implements EntityItemManager<EntityItem<User>> {
     }
 
     @Override
-    public EntityItem getItem(Long id) {
+    public EntityItem<User> getItem(Long id) {
         return fromUser(repository.findOne(id));
     }
 
     @Override
-    public List<EntityItem<User>> getPersonReferences(QueryMetaData queryMetaData, String... propertyNames) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<EntityItem<User>> getEntities(QueryMetaData queryMetaData, Pageable pageable) {
+        List<EntityItem<User>> result = new ArrayList<>();
+        for (User user : repository.findByQueryMetaData(queryMetaData, pageable)) {
+            result.add(fromUser(user));
+        }
+        return result;
     }
 
     @Override
