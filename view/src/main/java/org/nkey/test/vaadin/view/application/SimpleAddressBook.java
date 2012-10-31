@@ -1,7 +1,6 @@
 package org.nkey.test.vaadin.view.application;
 
 
-import com.vaadin.Application;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.IndexedContainer;
@@ -14,12 +13,12 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+import org.dellroad.stuff.vaadin.SpringContextApplication;
 import org.nkey.test.vaadin.domain.User;
 import org.nkey.test.vaadin.view.application.repository.EntityItem;
 import org.nkey.test.vaadin.view.application.repository.EntityItemContainer;
 import org.nkey.test.vaadin.view.application.repository.user.UserManager;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.context.ConfigurableWebApplicationContext;
 
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -28,9 +27,7 @@ import java.util.Arrays;
 /**
  * @author m.nikolaev Date: 30.10.12 Time: 23:04
  */
-@Scope("session")
-@Controller
-public class SimpleAddressBook extends Application {
+public class SimpleAddressBook extends SpringContextApplication {
     private static String[] fields = { "login", "password" };
 
     private Table contactList = new Table();
@@ -43,7 +40,7 @@ public class SimpleAddressBook extends Application {
     private UserManager userManager;
 
     @Override
-    public void init() {
+    public void initSpringApplication(ConfigurableWebApplicationContext context) {
         addressBookData = new EntityItemContainer<>(userManager, Arrays.asList(fields), User.class);
         addressBookData.refresh();
         initLayout();

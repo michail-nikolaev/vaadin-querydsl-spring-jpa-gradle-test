@@ -7,18 +7,20 @@
      http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
     <servlet>
-        <servlet-name>myservlet</servlet-name>
-        <servlet-class>
-            org.nkey.test.vaadin.view.spring.SpringApplicationServlet
-        </servlet-class>
+        <servlet-name>applicationServlet</servlet-name>
+        <servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
         <init-param>
-            <param-name>applicationBeanName</param-name>
-            <param-value>simpleAddressBook</param-value>
+            <param-name>application</param-name>
+            <param-value>org.nkey.test.vaadin.view.application.SimpleAddressBook</param-value>
+        </init-param>
+        <init-param>
+            <param-name>productionMode</param-name>
+            <param-value>false</param-value>
         </init-param>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>myservlet</servlet-name>
+        <servlet-name>applicationServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
@@ -36,12 +38,6 @@
     <listener>
         <description>The Spring context listener.</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
-    <listener>
-        <listener-class>
-            org.springframework.web.context.request.RequestContextListener
-        </listener-class>
     </listener>
 
 </web-app>

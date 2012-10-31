@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- $Id$ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <!-- Activate Spring annotation support -->
+    <context:annotation-config/>
+
+    <!-- Expose and configure the Vaadin application bean itself (i.e., the HelloWorld bean) using this context -->
+    <bean id="helloWorld" class="org.dellroad.stuff.vaadin.ContextApplication" factory-method="get"/>
+
+    <!-- Example of an application-specific bean whose lifecycle follows that of the Vaadin application -->
+    <!--<bean class="com.example.MyApplicationBean"/>-->
+
+</beans>
