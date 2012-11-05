@@ -1,8 +1,9 @@
-package org.nkey.test.vaadin.view.application.repository;
+package org.nkey.test.vaadin.view.application.entity.common;
 
 import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import org.nkey.test.vaadin.domain.AbstractEntity;
 import org.nkey.test.vaadin.services.metadata.QueryMetaData;
 import org.springframework.data.domain.PageRequest;
 
@@ -17,10 +18,10 @@ import java.util.Map;
 /**
  * @author m.nikolaev Date: 31.10.12 Time: 18:48
  */
-public class EntityItemContainer<T extends EntityItem> implements Container, Container.ItemSetChangeNotifier {
+public class EntityItemContainer<T extends AbstractEntity<T>> implements Container, Container.ItemSetChangeNotifier {
     private EntityItemManager<T> itemManager;
-    private List<T> entityItems;
-    private Map<Long, T> idToEntity;
+    private List<EntityItem<T>> entityItems;
+    private Map<Long, EntityItem<T>> idToEntity;
     private List<String> fieldToUse;
     private Class<?> clazz;
     private List<ItemSetChangeListener> listeners = new ArrayList<>();
@@ -33,7 +34,6 @@ public class EntityItemContainer<T extends EntityItem> implements Container, Con
 
     public static final QueryMetaData DEFAULT_QUERY_META_DATA = new QueryMetaData(null, null);
     protected QueryMetaData queryMetaData = DEFAULT_QUERY_META_DATA;
-    // Some fields omitted
 
     public void refresh() {
         refresh(queryMetaData);
@@ -43,7 +43,7 @@ public class EntityItemContainer<T extends EntityItem> implements Container, Con
         this.queryMetaData = queryMetaData;
         entityItems = itemManager.getEntities(queryMetaData, new PageRequest(0, Integer.MAX_VALUE));
         idToEntity = new HashMap<>();
-        for (T entityItem : entityItems) {
+        for (EntityItem<T> entityItem : entityItems) {
             idToEntity.put(entityItem.getEntityId(), entityItem);
         }
         notifyListeners();
@@ -82,7 +82,7 @@ public class EntityItemContainer<T extends EntityItem> implements Container, Con
     }
 
 
-    public List<T> getItems() {
+    public List<EntityItem<T>> getItems() {
         return Collections.unmodifiableList(entityItems);
     }
 
@@ -109,43 +109,41 @@ public class EntityItemContainer<T extends EntityItem> implements Container, Con
         return idToEntity.containsKey(itemId);
     }
 
-    // Unsupported methods omitted
-
-
     @Override
     public boolean addContainerProperty(Object propertyId, Class<?> type, Object defaultValue)
             throws UnsupportedOperationException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public Property getContainerProperty(Object itemId, Object propertyId) {
-        return idToEntity.get(itemId).getItemProperty(propertyId);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Item addItem(Object itemId) throws UnsupportedOperationException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Object addItem() throws UnsupportedOperationException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean removeItem(Object itemId) throws UnsupportedOperationException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean removeContainerProperty(Object propertyId) throws UnsupportedOperationException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean removeAllItems() throws UnsupportedOperationException {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Property getContainerProperty(Object itemId, Object propertyId) {
+        //noinspection SuspiciousMethodCalls
+        return idToEntity.get(itemId).getItemProperty(propertyId);
     }
 
     @Override

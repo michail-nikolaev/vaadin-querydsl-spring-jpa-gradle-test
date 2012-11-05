@@ -15,9 +15,8 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import org.dellroad.stuff.vaadin.SpringContextApplication;
 import org.nkey.test.vaadin.domain.User;
-import org.nkey.test.vaadin.view.application.repository.EntityItem;
-import org.nkey.test.vaadin.view.application.repository.EntityItemContainer;
-import org.nkey.test.vaadin.view.application.repository.user.UserManager;
+import org.nkey.test.vaadin.view.application.entity.common.EntityItemContainer;
+import org.nkey.test.vaadin.view.application.entity.user.UserManager;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 
 import javax.inject.Inject;
@@ -34,7 +33,7 @@ public class SimpleAddressBook extends SpringContextApplication {
     private Form contactEditor = new Form();
     private HorizontalLayout bottomLeftCorner = new HorizontalLayout();
     private Button contactRemovalButton;
-    private EntityItemContainer<EntityItem<User>> addressBookData;
+    private EntityItemContainer<User> addressBookData;
 
     @Inject
     private UserManager userManager;
@@ -95,7 +94,6 @@ public class SimpleAddressBook extends SpringContextApplication {
 
     private void initAddressList() {
         contactList.setContainerDataSource(addressBookData);
-        //contactList.setVisibleColumns(fields);
         contactList.setSelectable(true);
         contactList.setImmediate(true);
         contactList.addListener(new Property.ValueChangeListener() {
@@ -115,16 +113,6 @@ public class SimpleAddressBook extends SpringContextApplication {
             sf.setInputPrompt(fieldName);
             sf.setImmediate(true);
             bottomLeftCorner.setExpandRatio(sf, 1);
-            sf.addListener(new Property.ValueChangeListener() {
-                public void valueChange(ValueChangeEvent event) {
-
-                    /*addressBookData.removeContainerFilters(pn);
-                    if (sf.toString().length() > 0 && !pn.equals(sf.toString())) {
-                        addressBookData.addContainerFilter(pn, sf.toString(), true, false);
-                    }*/
-                    getMainWindow().showNotification("" + addressBookData.size() + " matches found");
-                }
-            });
         }
     }
 }

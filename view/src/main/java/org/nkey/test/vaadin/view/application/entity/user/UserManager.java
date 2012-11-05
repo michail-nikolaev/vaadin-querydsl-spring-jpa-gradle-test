@@ -1,12 +1,12 @@
-package org.nkey.test.vaadin.view.application.repository.user;
+package org.nkey.test.vaadin.view.application.entity.user;
 
 import com.vaadin.data.Property;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.nkey.test.vaadin.domain.User;
 import org.nkey.test.vaadin.services.metadata.QueryMetaData;
 import org.nkey.test.vaadin.services.repository.UserRepository;
-import org.nkey.test.vaadin.view.application.repository.EntityItem;
-import org.nkey.test.vaadin.view.application.repository.EntityItemManager;
+import org.nkey.test.vaadin.view.application.entity.common.EntityItem;
+import org.nkey.test.vaadin.view.application.entity.common.EntityItemManager;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import java.util.Map;
  * @author m.nikolaev Date: 31.10.12 Time: 2:33
  */
 @Component
-public class UserManager implements EntityItemManager<EntityItem<User>> {
+public class UserManager implements EntityItemManager<User> {
     @SuppressWarnings("SpringJavaAutowiringInspection") @Inject
     private UserRepository repository;
 

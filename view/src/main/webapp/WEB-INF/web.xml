@@ -17,6 +17,12 @@
             <param-name>productionMode</param-name>
             <param-value>false</param-value>
         </init-param>
+        <!--
+        <init-param>
+            <param-name>disable-xsrf-protection</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        -->
     </servlet>
 
     <servlet-mapping>

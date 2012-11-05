@@ -1,4 +1,4 @@
-package org.nkey.test.vaadin.view.application.repository;
+package org.nkey.test.vaadin.view.application.entity.common;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
