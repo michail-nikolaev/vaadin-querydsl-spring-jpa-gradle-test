@@ -32,5 +32,7 @@ public class UserRepositoryTest extends SpringTestBase {
 
         Assert.assertEquals(1, userRepository.findByQueryMetaData(new QueryMetaData("login", "nk%"),
                 new PageRequest(0, 10, Sort.Direction.ASC, "password")).size());
+
+        Assert.assertNotNull(userRepository.findByLogin("nkey"));
     }
 }

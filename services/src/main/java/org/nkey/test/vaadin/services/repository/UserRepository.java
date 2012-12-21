@@ -9,5 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface UserRepository extends QueryMetaDataRepository<User, Long> {
-
+    User findByLogin(String login);
 }

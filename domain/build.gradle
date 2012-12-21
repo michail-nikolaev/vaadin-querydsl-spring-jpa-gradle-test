@@ -1,7 +1,7 @@
 sourceSets {
     generated {
         java {
-            srcDirs = ['src/main/generatedJava']
+            srcDirs = ['src/main/generated']
         }
     }
 }
@@ -29,4 +29,20 @@ task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates
 compileJava {
     dependsOn generateQueryDSL
     source generateQueryDSL.destinationDir
+}
+
+compileGeneratedJava {
+    dependsOn generateQueryDSL
+    options.warnings = false
+    classpath += sourceSets.main.runtimeClasspath
+}
+
+clean {
+    delete sourceSets.generated.java.srcDirs
+}
+
+idea {
+    module {
+        sourceDirs += file('src/main/generated')
+    }
 }

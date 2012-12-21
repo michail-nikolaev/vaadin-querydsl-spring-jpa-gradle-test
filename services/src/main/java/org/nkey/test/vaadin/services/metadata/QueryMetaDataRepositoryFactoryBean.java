@@ -39,7 +39,7 @@ public class QueryMetaDataRepositoryFactoryBean<R extends JpaRepository<T, I>, T
         }
 
         protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
-            return metadata.getRepositoryInterface();
+            return QueryMetaDataRepository.class;
         }
     }
 }
